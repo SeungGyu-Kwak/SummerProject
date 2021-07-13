@@ -17,7 +17,7 @@ backGroundColor = (214,230,240)
 girl_image = pygame.image.load('asset/image/lion.png')
 
 
-while True: # 게임 루프
+while True: # 게임 루프 # 게임루프입니다.
 
     screen.fill(backGroundColor) # 단색으로 채워 화면 지우기
 
