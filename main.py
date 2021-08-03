@@ -14,6 +14,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # 화면 크기 
 # 게임 내 필요한 설정
 clock = pygame.time.Clock()
 pygame.key.set_repeat(10, 10) # 누르고 있는 키의 반복을 제어. (지연시간, 간격), 밀리세컨드
+font = pygame.font.Font('Maplestory+OTF+Light.otf', 30)
 
 # 게임 타이틀 설정
 pygame.display.set_caption("My Game")
@@ -21,7 +22,7 @@ pygame.display.set_caption("My Game")
 # 변수선언
 done = False
 backGroundColor = (214,230,240)
-
+score = 0 # 점수
 
 # 라이언 객체 생성
 lion = Lion()
@@ -57,11 +58,12 @@ while not done:
     # 3. 입력, 시간에 따른 변화
     for bomb in bombs:
         bomb.y += 5
-        if bomb.y > 800:
+        if bomb.y > 800: # 폭탄 계속 나오게 설정
             bombs.remove(bomb)
             bomb.x = random.randint(0, 600 - bomb.sx)
             bomb.y = - 100
             bombs.append(bomb)
+            score += 1
 
     # 화면 밖으로 나가지 않도록 설정
     if lion.x < 0:
@@ -74,6 +76,8 @@ while not done:
     for bomb in bombs:
         bomb.show()
 
+    score_image = font.render('점수 {}'.format(score), True, (255,255, 0)) # 점수 화면
+    screen.blit(score_image, (20, 20))
 
     # 5. 업데이트
     pygame.display.update()  # 모든 화면 그리기 업데이트 (없으면 화면 출력 안됨)

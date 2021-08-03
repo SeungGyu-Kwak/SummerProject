@@ -2,7 +2,11 @@ import pygame # 파이 게임 모듈 임포트
 from lion import Lion
 import random
 
+
 pygame.init() # 파이 게임 초기화
+
+font = pygame.font.Font(None,36)
+score = 0
 
 # 화면 크기 설정
 SCREEN_WIDTH = 600 # 화면 가로크기
@@ -51,6 +55,7 @@ while not done: # 게임 루프
             bomb.left = random.randint(0, 600-bomb.width)
             bomb.top = - 100
             bombs.append(bomb)
+            score += 1
 
     # 라이언이 프레임 밖으로 안나가게 설정
     if lion.left < 0:
@@ -63,6 +68,10 @@ while not done: # 게임 루프
 
     screen.blit(lion_image, lion)
     screen.blit(bomb_image, bomb)
+
+    score_image = font.render('점수 {}'.format(score), True, (255,255, 0))
+    screen.blit(score_image, (10, 10))
+
     # 화면 그리기
     pygame.display.update()  # 모든 화면 그리기 업데이트 (없으면 화면 출력 안됨)
     clock.tick(60)  # 30 FPS (초당 프레임 수), 초당 30번의 화면을 출력해주겠다는 것.
