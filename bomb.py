@@ -8,14 +8,18 @@ SCREEN_HEIGHT = size[1] # 화면 세로크기
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # 화면 크기 설정
 
 # 폭탄 클래스 생성하기
-class Bomb:
+class Bomb(pygame.sprite.Sprite):
     # 생성자
     def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('asset/image/bomb.png')
+        self.rect = self.image.get_rect()
         self.x = 0
         self.y = 0
 
+
     def put_img(self):
-        self.image = pygame.image.load('asset/image/bomb.png')
+        #self.image = pygame.image.load('asset/image/bomb.png')
         self.sx, self.sy = self.image.get_size()  # 현재 이미지에 대한 크기를 각각 sx, sy에 저장
 
     def show(self):

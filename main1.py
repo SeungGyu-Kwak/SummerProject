@@ -42,6 +42,7 @@ for i in range(1):
     bomb.y = -100
     bombs.append(bomb)
 
+
 # 충돌 판정 함수
 def collision_check(A, B):
     if A.y < B.y + B.sy and B.y < A.y + A.sy and A.x < B.x + B.sx and B.x < A.x + A.sx:
@@ -65,21 +66,22 @@ while not done:
                 lion.x += lion.move
 
     # 3. 입력, 시간에 따른 변화
-    if not game_over:
-        for bomb in bombs:
-            bomb.y += 5
-            if bomb.y > 800: # 폭탄 계속 나오게 설정
-                bombs.remove(bomb)
-                bomb.x = random.randint(0, 600 - bomb.sx)
-                bomb.y = - 100
-                bombs.append(bomb)
-                score += 1 # 폭탄이 내려가면 점수 카운트
+    for bomb in bombs:
+        bomb.y += 5
+        if bomb.y > 800: # 폭탄 계속 나오게 설정
+            bombs.remove(bomb)
+            bomb.x = random.randint(0, 600 - bomb.sx)
+            bomb.y = - 100
+            bombs.append(bomb)
+            score += 1 # 폭탄이 내려가면 점수 카운트
 
     # 화면 밖으로 나가지 않도록 설정
     if lion.x < 0:
         lion.x = 0
     elif lion.x > size[0] - lion.sx:
         lion.x = size[0] - lion.sx
+
+
 
     # 4. 그리기
     lion.show()
@@ -89,18 +91,20 @@ while not done:
     score_image = font1.render('점수 {}'.format(score), True, (255,255, 0)) # 점수 화면
     screen.blit(score_image, (20, 20))
 
-    # (1) 충돌 판정
+    # 충돌 판정
     for bomb in bombs:
         game_over = collision_check(lion,bomb)
+
     if game_over:
         game_over_image = font2.render('게임 종료', True, (255, 0, 0))
-        screen.blit(game_over_image, game_over_image.get_rect(centerx=300, centery=300))
+        screen.blit(game_over_image, (300, 400))
 
     # 5. 업데이트
     pygame.display.update()  # 모든 화면 그리기 업데이트 (없으면 화면 출력 안됨)
 
     # 화면 그리기
     screen.fill(backGroundColor)
+
 
 
 pygame.quit()
