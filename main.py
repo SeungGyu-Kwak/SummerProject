@@ -59,27 +59,21 @@ while not done:
         if event.type == pygame.QUIT: # if user clicked close
             done = True
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                lion.x -= lion.move
-            elif event.key == pygame.K_RIGHT:
-                lion.x += lion.move
+            lion.shift (event.key)
 
     # 3. 입력, 시간에 따른 변화
     if not game_over:
         for bomb in bombs:
-            bomb.y += 5
-            if bomb.y > 800: # 폭탄 계속 나오게 설정
+            bomb.fall ()
+
+            if bomb.isFallen (): # 폭탄 계속 나오게 설정
                 bombs.remove(bomb)
                 bomb.x = random.randint(0, 600 - bomb.sx)
                 bomb.y = - 100
                 bombs.append(bomb)
                 score += 1 # 폭탄이 내려가면 점수 카운트
 
-    # 화면 밖으로 나가지 않도록 설정
-    if lion.x < 0:
-        lion.x = 0
-    elif lion.x > size[0] - lion.sx:
-        lion.x = size[0] - lion.sx
+
 
     # 4. 그리기
     lion.show()
@@ -91,7 +85,10 @@ while not done:
 
     # (1) 충돌 판정
     for bomb in bombs:
-        game_over = collision_check(lion,bomb)
+        game_over = lion.isCollison(bomb) #collision_check(lion,bomb)
+        if game_over:
+            break
+
     if game_over:
         game_over_image = font2.render('게임 종료', True, (255, 0, 0))
         screen.blit(game_over_image, game_over_image.get_rect(centerx=300, centery=300))

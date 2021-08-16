@@ -16,6 +16,7 @@ class Bomb(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = 0
         self.y = 0
+        self.speed = 5
 
 
     def put_img(self):
@@ -24,3 +25,12 @@ class Bomb(pygame.sprite.Sprite):
 
     def show(self):
        screen.blit(self.image, (self.x, self.y))
+
+    def fall (self):
+        self.y += self.speed
+
+    def isFallen (self):
+        if self.y > 800:
+            return True
+        else:
+            return False

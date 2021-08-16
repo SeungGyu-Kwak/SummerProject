@@ -30,7 +30,26 @@ class Lion(pygame.sprite.Sprite):
     def show(self):
        screen.blit(self.image, (self.x, self.y))
 
+    def shift (self, key):
+        if key == pygame.K_LEFT:
+            self.x -= self.move
+        elif key == pygame.K_RIGHT:
+            self.x += self.move
 
+        # 화면 밖으로 나가지 않도록 설정
+        if self.x < 0:
+            self.x = 0
+        elif self.x > size[0] - self.sx:
+            self.x = size[0] - self.sx
+
+    def isCollison (self, bomb):
+        if self.y < bomb.y + bomb.sy and \
+                bomb.y < self.y + self.sy and \
+                self.x < bomb.x + bomb.sx and \
+                bomb.x < self.x + self.sx:
+            return True
+        else:
+            return False
 
 
 
