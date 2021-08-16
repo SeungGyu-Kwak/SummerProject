@@ -18,13 +18,10 @@ class Lion(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = 0
         self.y = 0
-        # self.rect.centerx = 300
-        # self.rect.centery = 700
-
         self.move = 0
 
     def put_img(self):
-        #self.image = pygame.image.load('asset/image/lion.png')
+
         self.sx, self.sy = self.image.get_size() # 현재 이미지에 대한 크기를 각각 sx, sy에 저장
 
     def show(self):
@@ -42,7 +39,7 @@ class Lion(pygame.sprite.Sprite):
         elif self.x > size[0] - self.sx:
             self.x = size[0] - self.sx
 
-    def isCollison (self, bomb):
+    def isCollision (self, bomb):
         if self.y < bomb.y + bomb.sy and \
                 bomb.y < self.y + self.sy and \
                 self.x < bomb.x + bomb.sx and \

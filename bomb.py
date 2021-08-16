@@ -1,4 +1,5 @@
 import pygame # 파이 게임 모듈 임포트
+import random
 pygame.init() # 파이 게임 초기화
 
 # 화면 크기 설정
@@ -16,7 +17,7 @@ class Bomb(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = 0
         self.y = 0
-        self.speed = 5
+        self.speed = 0
 
 
     def put_img(self):
@@ -33,3 +34,8 @@ class Bomb(pygame.sprite.Sprite):
             return True
         else:
             return False
+
+    def reCreate(self):
+        self.x = random.randint(0, 600 - self.sx)
+        self.y = - 100
+        self.speed = random.randint(3, 9)
