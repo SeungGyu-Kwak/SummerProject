@@ -23,6 +23,9 @@ pygame.display.set_caption("My Game")
 # 변수선언
 done = False
 backGroundColor = (214,230,240)
+BLACK = (0,0,0)
+RED = (255, 0, 0)
+YELLOW = (255,255,0)
 score = 0 # 점수
 game_over = False
 
@@ -48,6 +51,12 @@ def collision_check(A, B):
         return True
     else:
         return False
+
+# 음악설정
+pygame.mixer.init()
+pygame.mixer.music.load('asset/music/music.mid') #배경 음악
+pygame.mixer.music.play(-1) #-1: 무한 반복, 0: 한번
+game_over_sound = pygame.mixer.Sound('asset/music/game_over.wav')
 
 # 게임 루프
 while not done:
@@ -80,18 +89,20 @@ while not done:
     for bomb in bombs:
         bomb.show()
 
-    score_image = font1.render('점수 {}'.format(score), True, (255,255, 0)) # 점수 화면
+    score_image = font1.render('점수 {}'.format(score), True, YELLOW) # 점수 화면
     screen.blit(score_image, (20, 20))
 
     # (1) 충돌 판정
     for bomb in bombs:
-        game_over = lion.isCollison(bomb) #collision_check(lion,bomb)
+        game_over = lion.isCollison(bomb)
         if game_over:
+            pygame.mixer.music.stop()
             break
 
     if game_over:
-        game_over_image = font2.render('게임 종료', True, (255, 0, 0))
-        screen.blit(game_over_image, game_over_image.get_rect(centerx=300, centery=300))
+        game_over_image = font2.render('게임 종료', True, RED)
+        screen.blit(game_over_image, game_over_image.get_rect(centerx=SCREEN_WIDTH // 2, centery= SCREEN_HEIGHT // 2))
+        game_over_sound.play()
 
     # 5. 업데이트
     pygame.display.update()  # 모든 화면 그리기 업데이트 (없으면 화면 출력 안됨)

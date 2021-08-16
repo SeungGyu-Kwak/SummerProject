@@ -20,7 +20,6 @@ class Bomb(pygame.sprite.Sprite):
 
 
     def put_img(self):
-        #self.image = pygame.image.load('asset/image/bomb.png')
         self.sx, self.sy = self.image.get_size()  # 현재 이미지에 대한 크기를 각각 sx, sy에 저장
 
     def show(self):
@@ -29,7 +28,7 @@ class Bomb(pygame.sprite.Sprite):
     def fall (self):
         self.y += self.speed
 
-    def isFallen (self):
+    def isFallen(self):
         if self.y > 800:
             return True
         else:
