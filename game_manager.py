@@ -23,7 +23,7 @@ def createLion():
 # 폭탄 객체 생성
 def createBomb():
     bombs = []
-    for i in range(2):
+    for i in range(3):
         bomb = Bomb()
         bomb.put_img()  # 이미지 위치 설정
         bomb.x = random.randint(0, 600 - bomb.sx)
@@ -36,14 +36,19 @@ def createBomb():
 # BGM 설정 메소드
 def backGroundSound():
     pygame.mixer.init()
-    pygame.mixer.music.load('asset/music/music.mid')  # 배경 음악
+    pygame.mixer.music.load('asset/music/music.mid')
     pygame.mixer.music.play(-1)  # -1: 무한 반복, 0: 한번
+
+def backGroundSoundStop():
+    pygame.mixer.music.pause()
 
 # gameover sound 설정
 def gameoverSound():
     game_over_sound = pygame.mixer.Sound('asset/music/gameover.wav')
     return game_over_sound
 
+# 충돌시 sound 설정
 def collisionSound():
     collision_sound = pygame.mixer.Sound('asset/music/fail.wav')
     return collision_sound
+
